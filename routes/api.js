@@ -12,8 +12,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 // Initialize Gemini API
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// Default model to use (Gemini 1.5 Flash is fast and cheap, Pro is better for complex reasoning)
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+// Default model to use (Gemini 2.5 Flash is fast and cheap, Pro is better for complex reasoning)
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 // Endpoint 1: Deep-Signal Analyzer
 router.post('/analyze-resume', upload.single('resume'), async (req, res) => {
