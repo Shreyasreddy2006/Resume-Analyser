@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('resume', selectedFile);
 
         try {
-            const res = await fetch('/api/analyze-resume', {
+            const res = await fetch('https://resume-analyser-qnak.onrender.com/api/analyze-resume', {
                 method: 'POST',
                 body: formData
             });
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         matchBtn.disabled = true;
 
         try {
-            const res = await fetch('/api/match-job', {
+            const res = await fetch('https://resume-analyser-qnak.onrender.com/api/match-job', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
