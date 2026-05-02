@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromtWars-2 AI Matchmaker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>Signal AI</h1>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-view="recruiter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Recruiter View
+                </button>
+                <button class="nav-btn" data-view="candidate">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    Candidate View
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="recruiter-view" class="view-section active">
+                <header class="view-header">
+                    <h2>Deep-Signal Analyzer</h2>
+                    <p>Upload a candidate's resume. Our Zero-Prompt AI extracts technical maturity and trajectory.</p>
+                </header>
+                
+                <div class="card glass-panel upload-card">
+                    <form id="analyze-form">
+                        <div class="dropzone" id="dropzone">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            <p>Drag & Drop or <span>Browse</span> PDF</p>
+                            <input type="file" id="resume-upload" accept="application/pdf" hidden>
+                        </div>
+                        <button type="submit" class="btn-primary" id="analyze-btn" disabled>Analyze Resume</button>
+                    </form>
+                    <div class="loader hidden" id="analyze-loader"></div>
+                </div>
+
+                <div class="results-container hidden" id="analyze-results">
+                    <div class="card glass-panel result-card">
+                        <h3>Signal Score</h3>
+                        <div class="score-grid">
+                            <div class="score-item">
+                                <span class="label">Maturity Score</span>
+                                <div class="score-circle">
+                                    <span id="res-score">8/10</span>
+                                </div>
+                            </div>
+                            <div class="score-item">
+                                <span class="label">Growth Trajectory</span>
+                                <span class="value gradient-text" id="res-trajectory">Rapid Ascent</span>
+                            </div>
+                        </div>
+                        <div class="roles-section">
+                            <span class="label">Potential Roles</span>
+                            <div class="tags" id="res-roles">
+           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="candidate-view" class="view-section hidden">
+                <header class="view-header">
+                    <h2>Bias-Free Matchmaker</h2>
+                    <p>Compare a sanitized resume profile against a job description to get a Career Bridge gap report.</p>
+                </header>
+
+                <div class="card glass-panel input-card">
+                    <form id="match-form">
+                        <div class="form-group">
+                            <label for="sanitized-profile">Sanitized Resume Profile (from Recruiter step)</label>
+                            <textarea id="sanitized-profile" rows="4" placeholder="Perform a Recruiter analysis first to populate this, or paste a sanitized profile..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="job-desc">Job Description</label>
+                            <textarea id="job-desc" rows="4" placeholder="Paste the target job description here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" id="match-btn">Generate Match Report</button>
+                    </form>
+                    <div class="loader hidden" id="match-loader"></div>
+                </div>
+
+                <div class="results-container hidden" id="match-results">
+                    <div class="card glass-panel match-card">
+                        <div class="match-header">
+                            <h3>Match Score</h3>
+                            <div class="match-percentage"><span id="match-score">0</span>%</div>
+                        </div>
+                        
+                        <div class="career-bridge">
+                            <h4>Career Bridge</h4>
+                            <p class="subtitle">Actionable steps to close the gap:</p>
+                            <ul id="career-bridge-list" class="action-list">
+                            </ul>
+                        </div>
+
+                        <div class="adaptive-interviewer mt-4">
+                            <h4>Adaptive Interviewer</h4>
+                            <div class="chat-bubble">
+                                <div class="avatar ai-avatar">AI</div>
+                                <p id="interview-question">Loading question...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
