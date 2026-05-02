@@ -45,7 +45,10 @@ router.post('/analyze-resume', upload.single('resume'), async (req, res) => {
         let parsedResult;
         try {
             const cleanText = responseText.replace(/```json/gi, '').replace(/```/gi, '').trim();
-            parsedResult = JSON.parse(cleanText);
+            const startIndex = cleanText.indexOf('{');
+            const endIndex = cleanText.lastIndexOf('}');
+            const jsonStr = (startIndex !== -1 && endIndex !== -1) ? cleanText.substring(startIndex, endIndex + 1) : cleanText;
+            parsedResult = JSON.parse(jsonStr);
         } catch (e) {
             console.error("JSON parsing error:", e, "Response was:", responseText);
             return res.status(500).json({ error: 'Failed to parse AI response' });
@@ -54,7 +57,7 @@ router.post('/analyze-resume', upload.single('resume'), async (req, res) => {
         res.json(parsedResult);
     } catch (error) {
         console.error("Error analyzing resume:", error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: error.message || 'Internal server error' });
     }
 });
 
@@ -90,7 +93,10 @@ router.post('/match-job', async (req, res) => {
         let parsedResult;
         try {
             const cleanText = responseText.replace(/```json/gi, '').replace(/```/gi, '').trim();
-            parsedResult = JSON.parse(cleanText);
+            const startIndex = cleanText.indexOf('{');
+            const endIndex = cleanText.lastIndexOf('}');
+            const jsonStr = (startIndex !== -1 && endIndex !== -1) ? cleanText.substring(startIndex, endIndex + 1) : cleanText;
+            parsedResult = JSON.parse(jsonStr);
         } catch (e) {
             console.error("JSON parsing error:", e, "Response was:", responseText);
             return res.status(500).json({ error: 'Failed to parse AI response' });
@@ -99,7 +105,7 @@ router.post('/match-job', async (req, res) => {
         res.json(parsedResult);
     } catch (error) {
         console.error("Error matching job:", error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: error.message || 'Internal server error' });
     }
 });
 
